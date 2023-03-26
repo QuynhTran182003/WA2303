@@ -15,10 +15,6 @@ $(document).ready(function(){
 
             $(".card").click(function()
                 {
-                    let title = ($($(this).prop("children")[1]).prop("children")[0]).innerHTML;
-                    let imgLink = $($(this).prop("children")).prop("currentSrc");
-                    
-                    let id = $(this).attr("id");
                     let drinkInstance = drinks[$(this).attr("id")];
                     html = `
                     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
