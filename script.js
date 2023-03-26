@@ -1,9 +1,8 @@
 $(document).ready(function(){
     $.ajax({
-        // type: "GET",
+        type: "GET",
         url: "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a",
         success: function(data){
-            console.log(data.drinks);
             for(let i = 0; i< data.drinks.length; i++){
                 let drink = new Drink(data.drinks[i].idDrink, data.drinks[i].strDrink, data.drinks[i].strCategory, data.drinks[i].strDrinkThumb, data.drinks[i].strIngredient1,data.drinks[i].strIngredient2,data.drinks[i].strIngredient3, data.drinks[i].strIngredient4, data.drinks[i].strIngredient5, data.drinks[i].strInstructions);
                 drinks.push(drink);
@@ -73,9 +72,71 @@ $(document).ready(function(){
                     console.log(drinkInstance);
             });
 
-            $(".carouselView").click(CarouselView(drinks));
+            $(".carouselView").on("click", function(){
+                $(".DrinkList").empty();
+                let html=``;
+                for(let i = 0; i < drinks.length; i++){
+                    if(i===0){
+                        html+=`
+                        <div id="carouselExampleIndicators" class="carousel slide">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 8"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 9"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 10"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 11"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 12"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 13"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 14"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 15"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 16"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="16" aria-label="Slide 17"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="17" aria-label="Slide 18"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="18" aria-label="Slide 19"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="20" aria-label="Slide 20"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="21" aria-label="Slide 21"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="22" aria-label="Slide 22"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="23" aria-label="Slide 23"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="24" aria-label="Slide 24"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="25" aria-label="Slide 25"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                <img src=${drinks[i].img} class="d-block w-200" alt="...">
+                                </div>`;
+                    }
+                    else{
+                        html+=`
+                                <div class="carousel-item">
+                                    <img src=${drinks[i].img} class="d-block w-200" alt="...">
+                                </div>
+                        `;
+                    }
+                }
+                html+=`
+                            </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    </div>`;
+
+                    $(".DrinkList").html(html);
+            });
         }
+        
     })
+
 })
 
 
@@ -119,68 +180,66 @@ function RenderDrinks(drinkList){
     }
 }
 
-function CarouselView(drinkList){
-    let html =``;
-    for(let i = 0; i < drinkList.length; i++){
-        if(i==0){
-            html+=`
-            <div id="carouselExampleIndicators" class="carousel slide">
-                <div class="carousel-indicators">
-            `;
-            html+=`
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="16" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="17" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="18" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="20" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="21" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="22" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="23" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="24" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="25" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <img src=${drinkList[i].img} class="d-block w-100" alt="...">
-                </div>`;
-        }else{
-            html +=`
-                    <div class="carousel-item">
-                    <img src=${drinkList[i].img} class="d-block w-100" alt="...">
-                    </div>
-            `;
-        }
+// function CarouselView(drinkList){
+//     $(".DrinkList").empty();
+//     for(let i = 0; i < drinkList.length; i++){
+//         if(i==0){
+//             $(".DrinkList").append(`
+//             <div id="carouselExampleIndicators" class="carousel slide">
+//                 <div class="carousel-indicators">
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="16" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="17" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="18" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="20" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="21" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="22" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="23" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="24" aria-label="Slide 3"></button>
+//                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="25" aria-label="Slide 3"></button>
+//                 </div>
+//                 <div class="carousel-inner">
+//                     <div class="carousel-item active">
+//                     <img src=${drinkList[i].img} class="d-block w-200" alt="...">
+//                 </div>`);
+//         }
+//         else{
+//             $(".DrinkList").append(`
+//                     <div class="carousel-item">
+//                     <img src=${drinkList[i].img} class="d-block w-200" alt="...">
+//                     </div>
+//             `);
+//         }
         
-    }
-    html+=`
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-        </button>
-        </div>`;
+//     }
+//     $(".DrinkList").append(`
+//         </div>
+//         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+//         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+//         <span class="visually-hidden">Previous</span>
+//         </button>
+//         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+//         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+//         <span class="visually-hidden">Next</span>
+//         </button>
+//         </div>`);
 
-  $(".DrinkList").html(html);
-}
+// }
 
 
 
